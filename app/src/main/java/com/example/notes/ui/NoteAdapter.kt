@@ -5,13 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notes.Note
+import com.example.notes.database.models.Note
 import com.example.notes.R
 import kotlinx.android.synthetic.main.note_item.view.*
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NotesViewHolder>() {
 
-    private var notesList = mutableListOf<Note>()
+    private var notesList = listOf<Note>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
@@ -28,7 +28,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NotesViewHolder>() {
             holder.noteText.text = notesList[position].text
     }
 
-    fun setList(list: MutableList<Note>) {
+    fun setList(list: List<Note>) {
         notesList = list
     }
 
