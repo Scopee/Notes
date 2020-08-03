@@ -1,6 +1,8 @@
 package com.example.notes.ui
 
 import android.content.Context
+import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,6 +23,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         activity?.title = "My notes"
         hideKeyboard()
         (activity as MainActivity).notesViewModel.getAllNotes().observe(this, Observer {
+            Log.d("MainFragment", "observe")
             mAdapter.setList(it)
         })
 
@@ -31,7 +34,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun initRecyclerView() {
         mRecyclerView = main_notes_view
-        mAdapter = NoteAdapter()
+        mAdapter = NoteAdapter {
+            val bundle = Bundle()
+            bundle.putLong("id", it)
+            (activity as MainActivity).navController.navigate(
+                R.id.action_mainFragment_to_noteFragment,
+                bundle
+            )
+        }
         mRecyclerView.adapter = mAdapter
     }
 

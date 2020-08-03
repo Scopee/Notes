@@ -9,27 +9,33 @@ import com.example.notes.database.models.Note
 import com.example.notes.R
 import kotlinx.android.synthetic.main.note_item.view.*
 
-class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NotesViewHolder>() {
+class NoteAdapter(val callback: (Long) -> Unit) : RecyclerView.Adapter<NoteAdapter.NotesViewHolder>() {
 
-    private var notesList = listOf<Note>()
+    private var mNotesList = listOf<Note>()
+    private val maxTextLength = 64
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
         return NotesViewHolder(view)
     }
 
-    override fun getItemCount(): Int = notesList.size
+    override fun getItemCount(): Int = mNotesList.size
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
-        holder.noteName.text = notesList[position].name
-        if (notesList[position].text.length > 16)
-            holder.noteText.text = "${notesList[position].text.subSequence(0, 16)}..."
+        holder.noteName.text = mNotesList[position].name
+        if (mNotesList[position].text.length > maxTextLength)
+            holder.noteText.text = "${mNotesList[position].text.subSequence(0, maxTextLength)}..."
         else
-            holder.noteText.text = notesList[position].text
+            holder.noteText.text = mNotesList[position].text
+        holder.itemView.setOnClickListener {
+            callback(mNotesList[position].id)
+        }
     }
 
+
     fun setList(list: List<Note>) {
-        notesList = list
+        mNotesList = list
+        notifyDataSetChanged()
     }
 
     class NotesViewHolder(view: View) : RecyclerView.ViewHolder(view) {

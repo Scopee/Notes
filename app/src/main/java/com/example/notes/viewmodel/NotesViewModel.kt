@@ -35,4 +35,11 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
         repository.update(note)
     }
 
+    fun findNoteById(id: Long, callback: (Note)-> Unit) {
+        viewModelScope.launch(Dispatchers.Main) {
+            val note = repository.findNoteById(id)
+            callback(note)
+        }
+    }
+
 }
