@@ -1,11 +1,8 @@
 package com.example.notes.ui
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notes.MainActivity
 import com.example.notes.Note
 import com.example.notes.R
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -19,6 +16,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onStart() {
         super.onStart()
         initRecyclerView()
+        activity?.title = "My notes"
+
+        main_btn_create.setOnClickListener {
+            (activity as MainActivity).navController.navigate(R.id.action_mainFragment2_to_noteFragment)
+        }
+
     }
 
     private fun initRecyclerView() {

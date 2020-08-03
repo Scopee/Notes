@@ -11,11 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:layout_editor_absoluteX="-72dp"
-        tools:layout_editor_absoluteY="-82dp"
         tools:listitem="@layout/note_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_btn_create"
         android:layout_width="56dp"
         android:layout_height="56dp"
         app:layout_constraintEnd_toEndOf="parent"
