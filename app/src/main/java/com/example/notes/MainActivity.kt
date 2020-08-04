@@ -32,5 +32,4 @@ class MainActivity : AppCompatActivity() {
         mToolbar = mBinding.mainToolbar
         setSupportActionBar(mToolbar)
     }
-
 }

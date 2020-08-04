@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,7 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
-
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: NoteAdapter
@@ -29,6 +30,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             Log.d("MainFragment", "observe")
             mAdapter.setList(it)
         })
+
+
 
         main_btn_create.setOnClickListener {
             (activity as MainActivity).navController.navigate(R.id.action_mainFragment_to_noteFragment)
@@ -55,8 +58,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun showUndoSnackbar() {
-        Snackbar.make(requireView(), "Recover Note", Snackbar.LENGTH_LONG)
-            .setAction("Undo?") {
+        Snackbar.make(requireView(), "Undo Delete", Snackbar.LENGTH_LONG)
+            .setAction("Yes") {
                 (activity as MainActivity).notesViewModel.recover()
             }
             .show()
