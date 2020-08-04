@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notes.database.models.Note
 import com.example.notes.R
+import com.example.notes.database.models.Note
 import kotlinx.android.synthetic.main.note_item.view.*
 
-class NoteAdapter(val callback: (Long) -> Unit) : RecyclerView.Adapter<NoteAdapter.NotesViewHolder>() {
+class NoteAdapter(val callback: (Long) -> Unit) :
+    RecyclerView.Adapter<NoteAdapter.NotesViewHolder>() {
 
     private var mNotesList = listOf<Note>()
     private val maxTextLength = 64
@@ -32,6 +33,7 @@ class NoteAdapter(val callback: (Long) -> Unit) : RecyclerView.Adapter<NoteAdapt
         }
     }
 
+    fun getNoteByPosition(position: Int): Note = mNotesList[position]
 
     fun setList(list: List<Note>) {
         mNotesList = list

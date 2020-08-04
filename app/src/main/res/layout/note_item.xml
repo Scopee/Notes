@@ -11,7 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
     android:focusable="true"
-    app:layout_constraintCircleRadius="10dp"
+    app:layout_constraintCircleRadius="20dp"
     android:background="@drawable/bg_notes">
 
     <TextView

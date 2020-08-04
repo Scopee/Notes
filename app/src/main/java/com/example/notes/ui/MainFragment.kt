@@ -6,9 +6,12 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.MainActivity
 import com.example.notes.R
+import com.example.notes.ui.objects.SwipeToDeleteCallback
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -43,6 +46,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             )
         }
         mRecyclerView.adapter = mAdapter
+        val itemTouchHelper =
+            ItemTouchHelper(SwipeToDeleteCallback(mAdapter, activity as MainActivity) {
+                (activity as MainActivity).notesViewModel.delete(it)
+                showUndoSnackbar()
+            })
+        itemTouchHelper.attachToRecyclerView(mRecyclerView)
+    }
+
+    private fun showUndoSnackbar() {
+        Snackbar.make(requireView(), "Recover Note", Snackbar.LENGTH_LONG)
+            .setAction("Undo?") {
+                (activity as MainActivity).notesViewModel.recover()
+            }
+            .show()
     }
 
     private fun hideKeyboard() {

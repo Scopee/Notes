@@ -1,13 +1,12 @@
 package com.example.notes
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.notes.databinding.ActivityMainBinding
-import com.example.notes.ui.MainFragment
 import com.example.notes.viewmodel.NotesViewModel
 
 class MainActivity : AppCompatActivity() {

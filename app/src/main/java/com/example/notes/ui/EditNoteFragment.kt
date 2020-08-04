@@ -8,9 +8,7 @@ import com.example.notes.MainActivity
 import com.example.notes.R
 import com.example.notes.database.models.Note
 import com.example.notes.utils.AppTextWatcher
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_edit_note.*
-import kotlinx.android.synthetic.main.note_item.*
 
 class EditNoteFragment : Fragment(R.layout.fragment_edit_note) {
 
