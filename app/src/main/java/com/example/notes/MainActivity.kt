@@ -1,6 +1,8 @@
 package com.example.notes
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
@@ -31,5 +33,10 @@ class MainActivity : AppCompatActivity() {
     private fun initToolbar() {
         mToolbar = mBinding.mainToolbar
         setSupportActionBar(mToolbar)
+    }
+
+    fun hideKeyboard() {
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
     }
 }

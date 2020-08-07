@@ -75,10 +75,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.edit_menu_confirm -> {
-                saveNote()
-                (activity as MainActivity).navController.popBackStack()
-            }
+            R.id.edit_menu_confirm -> saveNote()
         }
         return true
     }
@@ -87,12 +84,20 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note) {
         val title = edit_name.text.toString()
         val text = edit_text.text.toString()
 
+        if (title.isEmpty()){
+            (activity as MainActivity).hideKeyboard()
+            Snackbar.make(requireView(), "Title cannot be empty!", Snackbar.LENGTH_SHORT)
+                .show()
+            return
+        }
+
         if (isEdit) {
             mNote.name = title
             mNote.text = text
             (activity as MainActivity).notesViewModel.update(mNote)
         } else
             (activity as MainActivity).notesViewModel.insert(Note(title, text))
+        (activity as MainActivity).navController.popBackStack()
     }
 
     override fun onStop() {

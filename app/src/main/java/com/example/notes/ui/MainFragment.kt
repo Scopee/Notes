@@ -25,13 +25,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onStart()
         initRecyclerView()
         activity?.title = "My notes"
-        hideKeyboard()
+        (activity as MainActivity).hideKeyboard()
         (activity as MainActivity).notesViewModel.getAllNotes().observe(this, Observer {
             Log.d("MainFragment", "observe")
             mAdapter.setList(it)
         })
-
-
 
         main_btn_create.setOnClickListener {
             (activity as MainActivity).navController.navigate(R.id.action_mainFragment_to_noteFragment)
@@ -58,16 +56,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun showUndoSnackbar() {
-        Snackbar.make(requireView(), "Undo Delete", Snackbar.LENGTH_LONG)
-            .setAction("Yes") {
+        Snackbar.make(requireView(), "Your note has been deleted.", Snackbar.LENGTH_LONG)
+            .setAction("Undo") {
                 (activity as MainActivity).notesViewModel.recover()
             }
+            .setAnchorView(main_btn_create)
             .show()
-    }
-
-    private fun hideKeyboard() {
-        val imm: InputMethodManager =
-            (activity as MainActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow((activity as MainActivity).window.decorView.windowToken, 0)
     }
 }
